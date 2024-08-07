@@ -36,8 +36,6 @@ Bem-vindo ao **Backend API**! Este projeto oferece funcionalidades de autentica√
         cp .env.example .env
         ```
 
-     - **Copie tamb√©m  JWT_SECRET e APP_KEY para .env.testing**
-
     - Configure um alias para comandos Sail (opcional):
 
         ```bash
@@ -58,6 +56,8 @@ Bem-vindo ao **Backend API**! Este projeto oferece funcionalidades de autentica√
     sail php artisan jwt:secret
     sail php artisan config:clear
     ```
+- Copie do arquivo `.env` para `.env.testing`:
+  #JWT_SECRET e APP_KEY 
 
 8. **Gere os dados iniciais no banco de dados:**
 
