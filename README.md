@@ -10,20 +10,25 @@ Bem-vindo ao **Backend API**! Este projeto oferece funcionalidades de autentica�
     git clone https://github.com/steviekelvin/laravel-api.git
     ```
 
-2. **Instale as dependências do sistema:**
+2.  **Navegue até a raiz do projeto:**
+
+    ```bash
+    cd laravel-api
+    ```
+3. **Instale as dependências do sistema:**
 
     ```bash
     sudo apt-get update
     sudo apt-get install php-xml php-curl
     ```
 
-3. **Instale as dependências do projeto:**
+4. **Instale as dependências do projeto:**
 
     ```bash
     composer install
     ```
 
-4. **Configure o ambiente:**
+5. **Configure o ambiente:**
 
     - Copie o arquivo `.env.example` para `.env`:
 
@@ -37,11 +42,6 @@ Bem-vindo ao **Backend API**! Este projeto oferece funcionalidades de autentica�
         alias sail='sh $([ -f sail ] && echo sail || echo vendor/bin/sail)'
         ```
 
-5. **Navegue até a raiz do projeto:**
-
-    ```bash
-    cd laravel-api
-    ```
 
 6. **Suba o projeto:**
 
