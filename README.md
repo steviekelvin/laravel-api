@@ -162,4 +162,4 @@ Para acessar o swagger da aplicação basta acessar o [http://localhost/api/docu
  ```
 
 ## Insomia: 
-Arquivo de testes por insomia inclusos
+Arquivo de testes por insomia inclusos na raiz do projeto
