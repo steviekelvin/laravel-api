@@ -160,3 +160,6 @@ Para acessar o swagger da aplicação basta acessar o [http://localhost/api/docu
 ```bash
  sail php artisan test
  ```
+
+## Insomia: 
+Arquivo de testes por insomia inclusos
