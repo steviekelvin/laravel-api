@@ -5,7 +5,7 @@ use App\Http\Controllers\DocController;
 use Illuminate\Support\Facades\Route;
 
 /**
- * Rotas dautenticadas
+ * Rotas de documentos
  */
 
 Route::get('/', [DocController::class, 'index'])->name('docs');
