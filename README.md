@@ -54,7 +54,7 @@ Bem-vindo ao **Backend API**! Este projeto oferece funcionalidades de autentica√
     ```bash
     sail php artisan key:generate
     sail php artisan jwt:secret
-    sail php artisan config:cache
+    sail php artisan config:clear
     ```
 
 8. **Gere os dados iniciais no banco de dados:**
