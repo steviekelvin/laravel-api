@@ -65,7 +65,7 @@ Bem-vindo ao **Backend API**! Este projeto oferece funcionalidades de autentica�
 
 9. **Ajuste o manipulador de exceções:**
 
-    - No arquivo `/laravel-api/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php`, substitua o retorno da função `unauthenticated` por:
+    - No arquivo `vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php`, substitua o retorno da função `unauthenticated` por:
 
         ```php
         protected function unauthenticated($request, AuthenticationException $exception)
@@ -74,7 +74,7 @@ Bem-vindo ao **Backend API**! Este projeto oferece funcionalidades de autentica�
         }
         ```
 
-No arquivo `/home/stevie/Documentos/desafio-laravel/laravel-api-1/vendor/laravel/framework/src/Illuminate/Foundation/Configuration/ApplicationBuilder.php` substitua a função `withMiddleware` por:
+No arquivo `vendor/laravel/framework/src/Illuminate/Foundation/Configuration/ApplicationBuilder.php` substitua a função `withMiddleware` por:
 
 ```php
 public function withMiddleware(?callable $callback = null)
