@@ -36,6 +36,8 @@ Bem-vindo ao **Backend API**! Este projeto oferece funcionalidades de autentica√
         cp .env.example .env
         ```
 
+     - **Copie tamb√©m  JWT_SECRET e APP_KEY para .env.testing**
+
     - Configure um alias para comandos Sail (opcional):
 
         ```bash
