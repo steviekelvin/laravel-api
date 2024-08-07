@@ -56,16 +56,17 @@ Bem-vindo ao **Backend API**! Este projeto oferece funcionalidades de autentica�
     sail php artisan jwt:secret
     sail php artisan config:clear
     ```
-- Copie do arquivo `.env` para `.env.testing`:
-  #JWT_SECRET e APP_KEY 
 
-8. **Gere os dados iniciais no banco de dados:**
+**Copie do arquivo `.env` para `.env.testing` as variáveis:**
+  JWT_SECRET e APP_KEY 
+
+9. **Gere os dados iniciais no banco de dados:**
 
     ```bash
     sail php artisan migrate:fresh --seed
     ```
 
-9. **Ajuste o manipulador de exceções:**
+10. **Ajuste o manipulador de exceções:**
 
     - No arquivo `vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php`, substitua o retorno da função `unauthenticated` por:
 
