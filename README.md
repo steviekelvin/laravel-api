@@ -57,7 +57,7 @@ Bem-vindo ao **Backend API**! Este projeto oferece funcionalidades de autentica�
     sail php artisan config:clear
     ```
 
-**Copie do arquivo `.env` para `.env.testing` as variáveis:**
+8. **Copie do arquivo `.env` para `.env.testing` as variáveis:**
   JWT_SECRET e APP_KEY 
 
 9. **Gere os dados iniciais no banco de dados:**
