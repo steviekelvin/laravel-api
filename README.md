@@ -66,72 +66,30 @@ Bem-vindo ao **Backend API**! Este projeto oferece funcionalidades de autentica�
         sail php artisan migrate:fresh --seed
     ```
 
-10. **Ajuste o manipulador de exceções:**
-
-    - No arquivo `vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php`, substitua o retorno da função `unauthenticated` por:
-
-        ```php
-            protected function unauthenticated($request, AuthenticationException $exception)
-            {
-                return response()->json(['message' => $exception->getMessage()], 401);
-            }
-        ```
-
-No arquivo `vendor/laravel/framework/src/Illuminate/Foundation/Configuration/ApplicationBuilder.php` substitua a função `withMiddleware` por:
-
-```php
-    public function withMiddleware(?callable $callback = null)
-        {
-            $this->app->afterResolving(HttpKernel::class, function ($kernel) use ($callback) {
-                $middleware = (new Middleware);
-
-                if (!is_null($callback)) {
-                    $callback($middleware);
-                }
-
-                $this->pageMiddleware = $middleware->getPageMiddleware();
-                $kernel->setGlobalMiddleware($middleware->getGlobalMiddleware());
-                $kernel->setMiddlewareGroups($middleware->getMiddlewareGroups());
-                $kernel->setMiddlewareAliases($middleware->getMiddlewareAliases());
-
-                if ($priorities = $middleware->getMiddlewarePriority()) {
-                    $kernel->setMiddlewarePriority($priorities);
-                }
-            });
-
-            return $this;
-        }
-```
-
-## Rotas
-
 ### Autenticação
 
 - **Login via Email e Senha**
 
-  - **Endpoint:** `/api/users/`
+  - **Endpoint:** `/api/users/login`
   - **Método:** `POST`
   - **Descrição:** Autentica um usuário com email e senha.
   - **Body:**
 
-        ```json
-            { "email": "usuario@exemplo.com", "senha": "sua_senha" }
-        ```
+    ```json
+    {
+        "email": "steviekelvinsilvabarbosa4@gmail.com", 
+        "password": "12345678"
+    }
+    ```
 
   - **Resposta:** Retorna um token JWT para autenticação.
 
 - **Login via Token JWT**
 
-  - **Endpoint:** `/api/users/login`
-  - **Método:** `POST`
-  - **Descrição:** Autentica um usuário com um token JWT.
-  - **Body:**
-
-        ```json
-            { "token": "seu_token_jwt" }
-        ```
-
-  - **Resposta:** Retorna um token JWT válido para autenticação.
+  - **Endpoint:** `/api/users/`
+  - **Método:** `GET`
+  - **Descrição:** Autentica um usuário com Bearer Token
+  - **Retorno:** Retorna o objeto de usuário logado com o token
 
 ### Documentos
 
@@ -148,8 +106,6 @@ No arquivo `vendor/laravel/framework/src/Illuminate/Foundation/Configuration/App
   - **Método:** `GET`
   - **Descrição:** Retorna o documento com o ID especificado.
   - **Autenticação:** Necessário Bearer Token JWT
-
-## Autenticação
 
 Para acessar rotas que requerem autenticação, inclua um token JWT válido no cabeçalho da solicitação:
 
@@ -171,6 +127,8 @@ Para acessar o swagger da aplicação basta acessar o [http://localhost/api/docu
 
 - Testes indivíduais
 
+Usuário:
+
 ```bash
     sail php artisan test --filter=testShowExistingDocument
     sail php artisan test --filter=testShowNonExistingDocument
@@ -178,6 +136,21 @@ Para acessar o swagger da aplicação basta acessar o [http://localhost/api/docu
     sail php artisan test --filter=testIndexNoDocumentsExist
 ```
 
+Documentos:
+
+```bash
+    sail php artisan test --filter=testShowExistingDocument
+    sail php artisan test --filter=testShowNonExistingDocument
+    sail php artisan test --filter=testIndexDocumentsExist
+    sail php artisan test --filter=testIndexNoDocumentsExist
+```
+
+
 ## Insomia
 
 Arquivo de testes por insomia inclusos na raiz do projeto
+
+![Swagger](.example/swagger.png)
+![insomnia](.example/insomia.png)
+![Rota Home](.example/index.png)
+![Testes PHPunit](.example/tests.png)

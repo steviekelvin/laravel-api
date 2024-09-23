@@ -1,10 +1,12 @@
 <?php
 
-namespace Tests\App\HTTP\Controllers;
+namespace Tests\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Auth;
 use Tests\TestCase;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class UserControllerTest extends TestCase
 {
@@ -14,6 +16,7 @@ class UserControllerTest extends TestCase
     /**
      * Teste o método show para usuários não autenticados.
      *
+     * Comando para teste:  sail php artisan test --filter=testShowUnauthenticated
      * @return void
      */
     public function testShowUnauthenticated()
@@ -29,13 +32,19 @@ class UserControllerTest extends TestCase
     /**
      * Teste o método show para usuário autenticado.
      *
+     * Comando para teste:  sail php artisan test --filter=testShowAuthenticated
      * @return void
      */
     public function testShowAuthenticated()
     {
         $user = User::factory()->create();
+        Auth::login($user);
+        $token = JWTAuth::fromUser($user);
 
-        $response = $this->actingAs($user, 'api')->json('GET', '/api/users');
+        // Adiciona o token ao header da requisição e faz a requisição
+        $response = $this->withHeaders([
+            'Authorization' => "Bearer $token"
+        ])->json('GET', '/api/users');
 
         $response->assertStatus(200)
             ->assertJson([
@@ -52,6 +61,7 @@ class UserControllerTest extends TestCase
     /**
      * Teste o método de login com entrada inválida.
      *
+     * Comando para teste:  sail php artisan test --filter=testLoginInvalidInput
      * @return void
      */
     public function testLoginInvalidInput()
@@ -70,6 +80,7 @@ class UserControllerTest extends TestCase
     /**
      * Teste de login com credenciais inválidas
      *
+     * Comando para teste:  sail php artisan test --filter=testLoginInvalidCredentials
      * @return void
      */
     public function testLoginInvalidCredentials()
@@ -92,6 +103,7 @@ class UserControllerTest extends TestCase
     /**
      * Teste de login com credenciais válidas
      *
+     * Comando para teste:  sail php artisan test --filter=testLoginValidCredentials
      * @return void
      */
     public function testLoginValidCredentials()

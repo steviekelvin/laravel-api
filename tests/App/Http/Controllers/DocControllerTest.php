@@ -1,11 +1,13 @@
 <?php
 
-namespace Tests\App\HTTP\Controllers;
+namespace Tests\Http\Controllers;
 
 use App\Models\Doc;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Auth;
 use Tests\TestCase;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 /**
  * Testes para o controlador de documentos.
@@ -33,6 +35,13 @@ class DocControllerTest extends TestCase
             'titulo' => $title,
             'descricao' => $description,
         ]);
+
+        Auth::login($user);
+        $token = JWTAuth::fromUser($user);
+
+        $response = $this->withHeaders([
+            'Authorization' => "Bearer $token"
+        ])->json('GET', "/api/docs/{$document->id}");
 
         $this->assertIsInt($document->id, 'Id do documento não encontrado');
 
@@ -77,7 +86,12 @@ class DocControllerTest extends TestCase
         $nonExistingId = 999;
 
         $user = User::factory()->create();
-        $response = $this->actingAs($user, 'api')->json('GET', "/api/docs/{$nonExistingId}");
+        Auth::login($user);
+        $token = JWTAuth::fromUser($user);
+
+        $response = $this->withHeaders([
+            'Authorization' => "Bearer $token"
+        ])->json('GET', "/api/docs/{$nonExistingId}");
 
         $response->assertStatus(404)
             ->assertJson([
@@ -99,7 +113,12 @@ class DocControllerTest extends TestCase
 
         $documents = Doc::factory()->count(6)->create();
 
-        $response = $this->actingAs($user, 'api')->json('GET', "/api/docs");
+        Auth::login($user);
+        $token = JWTAuth::fromUser($user);
+
+        $response = $this->withHeaders([
+            'Authorization' => "Bearer $token"
+        ])->json('GET', "/api/docs");
 
         $response->assertStatus(200)
             ->assertJson([
@@ -126,7 +145,12 @@ class DocControllerTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $response = $this->actingAs($user, 'api')->json('GET', "/api/docs");
+        Auth::login($user);
+        $token = JWTAuth::fromUser($user);
+
+        $response = $this->withHeaders([
+            'Authorization' => "Bearer $token"
+        ])->json('GET', "/api/docs");
 
         $response->assertStatus(200)
             ->assertJson([
